@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Inicio</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Inicio</h1>
+        <!-- <p th:text="Parrafo"></p> -->
+        <!-- El mensaje esta en model -->
+        <p th:text="${mensaje}"></p>
+        <p th:text="${mensajeProp}"></p>
+        <br>
+        <div th:if="${personas != null and !personas.empty}">
+            <table border="1">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Telefono</th>
+                </tr>
+                <!-- forEach con thymeleaf -->
+                <tr th:each="persona : ${personas}">
+                    <td th:text="${persona.nombre}"></td>
+                    <td th:text="${persona.apellido}"></td>
+                    <td th:text="${persona.email}"></td>
+                    <td th:text="${persona.telefono}"></td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${personas == null or personas.empty}">
+            <p>Lista vacia</p>
+        </div>
+        <!-- 
+        <p>Nombre: <span th:text="${persona.nombre}"></span></p>
+        <p>Apellido: <span th:text="${persona.apellido}"></span></p>
+        <p>Email: <span th:text="${persona.email}"></span></p>
+        <p>Telefono: <span th:text="${persona.telefono}"></span></p>
+        comment -->
+    </body>
+</html>
