@@ -1,7 +1,7 @@
 
 package com.cocoz.web;
 
-import com.cocoz.dao.PersonaDao;
+import com.cocoz.service.PersonaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,14 +12,16 @@ import org.springframework.ui.Model;
 @Slf4j 
 public class ControladorInicio {
 
-    /* le indica a Spring que inyecte la dependencia PersonaDao */
+/* le indica a Spring que inyecte la dependencia personaService 
+    => Spring va a buscar una implementacion
+*/
     @Autowired
-    private PersonaDao personaDao;
+    private PersonaService personaService;
     
     @GetMapping("/")
     public String inicio(Model model){//por inyeccion de dependencias model ya esta disponible
         
-        var personas = personaDao.findAll();
+        var personas = personaService.listarPersonas();
         
         //agregamos personas al map de model
         model.addAttribute("personas", personas);
@@ -40,6 +42,8 @@ Resumen:
 
 4. Creamos interface <Entidad>Dao y la hacemos extender de CrudRepository<Entidad,PKentidad>
 
-5. Inyectamos la interfaz DAO en el controlador y la usamos para recuperar datos y redirigir llamadas
+5. Creamos una interface y una implementacion para el servicio y le inyectamos la interfaz DAO
+
+6. Inyectamos la interfaz service en el controlador y la usamos para recuperar datos y redirigir llamadas
 
 */
