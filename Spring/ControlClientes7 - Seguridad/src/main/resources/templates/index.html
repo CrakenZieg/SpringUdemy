@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Inicio</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header th:replace="~{layout/plantilla.html :: header}"></header>  
+        <a th:href="@{/agregar}">[[#{accion.crear}]]</a>
+        <div th:if="${personas != null and !personas.empty}">
+            <table border="1">
+                <tr>
+                    <th>[[#{index.nombre}]]</th>
+                    <th>[[#{index.apellido}]]</th>
+                    <th>[[#{index.email}]]</th>
+                    <th>[[#{index.telefono}]]</th>
+                    <th>[[#{index.saldo}]]</th>
+                    <th>[[#{accion.editar}]]</th>
+                    <th>[[#{accion.eliminar}]]</th>
+                </tr>
+                <!-- Agregamos el path variable con ${var} -->
+                <tr th:each="persona : ${personas}">
+                    <td th:text="${persona.nombre}"></td>
+                    <td th:text="${persona.apellido}"></td>
+                    <td th:text="${persona.email}"></td>
+                    <td th:text="${persona.telefono}"></td>
+                    <td th:text="${persona.saldo}"></td>
+                    <td><a th:href="@{/editar/}+${persona.idPersona}" th:text="#{accion.editar}"></a></td>
+                    <td><a th:href="@{/eliminar(idPersona=${persona.idPersona})}" th:text="#{accion.eliminar}"></a></td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${personas == null or personas.empty}">
+            <p>[[#{index.vacio}]]</p>
+        </div>
+        <footer th:replace="~{layout/plantilla.html :: footer}"></footer>
+        <!-- 
+        <p>Nombre: <span th:text="${persona.nombre}"></span></p>
+        <p>Apellido: <span th:text="${persona.apellido}"></span></p>
+        <p>Email: <span th:text="${persona.email}"></span></p>
+        <p>Telefono: <span th:text="${persona.telefono}"></span></p>
+        comment -->
+    </body>
+</html>

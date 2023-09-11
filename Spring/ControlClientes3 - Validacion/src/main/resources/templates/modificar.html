@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Datos de la persona</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <h1>Datos de la persona</h1>
+        <a th:href="@{/}">Regresar</a>
+        <br/>
+<!-- el submit va a ser un post, dirigido a /guardar y maneja un obj persona -->
+        <form th:action="@{/guardar}" method="post" th:object="${persona}">
+<!-- incluimos el ipPersona como dato oculto para que Spring sepa si es un obj nuevo o no -->
+            <input type="hidden" name="idPersona" th:field="*{idPersona}"/>
+            <label for="nombre">Nombre:</label>
+<!-- *{prop} va directamente al atributo prop del obj manejado por el formulario -->
+            <input type="text" name="nombre" th:field="*{nombre}" /> 
+<!-- usamos el comodin fields y preguntamos si el campo 'nombre' tiene errores, 
+luego accedemos al error del campo y se reemplaza en contenido del elemento -->
+            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error del nombre</span>
+            <br/>
+            <label for="apellido">Apellido:</label>
+            <input type="text" name="apellido" th:field="*{apellido}" />
+            <span th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}">Error del apellido</span>
+            <br/>
+            <label for="email">Email:</label>
+            <input type="email" name="email" th:field="*{email}" /> 
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error del email</span>
+            <br/>
+            <label for="telefono">Telefono:</label>
+            <input type="tel" name="telefono" th:field="*{telefono}" />
+            <span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">Error del telefono</span>
+            <br/>
+            <label for="saldo">Saldo:</label>
+            <input type="number" name="saldo" th:field="*{saldo}" /> 
+            <span th:if="${#fields.hasErrors('saldo')}" th:errors="*{saldo}">Error del saldo</span>
+            <br/>
+            <input type="submit" name="guardar" value="Guardar"/>
+        </form>
+    </body>
+</html>
