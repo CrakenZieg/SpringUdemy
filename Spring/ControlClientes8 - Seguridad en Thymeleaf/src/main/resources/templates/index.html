@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <title>Inicio</title>
         <meta charset="UTF-8"/>
@@ -7,7 +8,7 @@
     </head>
     <body>
         <header th:replace="~{layout/plantilla.html :: header}"></header>  
-        <a th:href="@{/agregar}">[[#{accion.crear}]]</a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/agregar}">[[#{accion.crear}]]</a>
         <div th:if="${personas != null and !personas.empty}">
             <table border="1">
                 <tr>
@@ -16,8 +17,8 @@
                     <th>[[#{index.email}]]</th>
                     <th>[[#{index.telefono}]]</th>
                     <th>[[#{index.saldo}]]</th>
-                    <th>[[#{accion.editar}]]</th>
-                    <th>[[#{accion.eliminar}]]</th>
+                    <th sec:authorize="hasRole('ADMIN')" >[[#{accion.editar}]]</th>
+                    <th sec:authorize="hasRole('ADMIN')" >[[#{accion.eliminar}]]</th>
                 </tr>
                 <!-- Agregamos el path variable con ${var} -->
                 <tr th:each="persona : ${personas}">
@@ -26,8 +27,8 @@
                     <td th:text="${persona.email}"></td>
                     <td th:text="${persona.telefono}"></td>
                     <td th:text="${persona.saldo}"></td>
-                    <td><a th:href="@{/editar/}+${persona.idPersona}" th:text="#{accion.editar}"></a></td>
-                    <td><a th:href="@{/eliminar(idPersona=${persona.idPersona})}" th:text="#{accion.eliminar}"></a></td>
+                    <td sec:authorize="hasRole('ADMIN')" ><a th:href="@{/editar/}+${persona.idPersona}" th:text="#{accion.editar}"></a></td>
+                    <td sec:authorize="hasRole('ADMIN')" ><a th:href="@{/eliminar(idPersona=${persona.idPersona})}" th:text="#{accion.eliminar}"></a></td>
                 </tr>
             </table>
         </div>

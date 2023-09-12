@@ -196,4 +196,41 @@ un html para 403 y lo agregamos a WebConfig y a SecurityConfig (como ExceptionHa
 30. Podemos recuperar el usuario que se logeo inyectando @AuthenticationPrincipal User user
 en los parametros de get '/' (o en cualquier otro lado claro esta)
 
+31. Agregando la libreria de security de thymeleaf (en pom y como prefijos en html) 
+podemos acceder a datos de authority desde nuestros html, con lo que podemos modificar
+las views, por ejemplo
+
+32. Creamos las tablas de usuario y rol en la DDBB ya que vamos a migrar a los usuarios
+desde hardcode.
+
+33. Creamos una clase de utilidad para usar BCryptPasswordEncoder y hasheamos los pass
+paspado: $2a$10$XOxKDt53MSjTI93O8IW9ZOnpd.ZD.UpJTInAkCuisN14TfcQRrFda
+
+34. Creamos clases DAO para usuario y rol que implementan JpaRepository, tambien
+modificamos la implementacion de PersonaDao. CrudRepository es una clase util pero
+JpaRepository extiende de una que introduce sentencias a partir de ejemplos (recupera 
+todas las que tienen tal o cual caracteristica) y ademas extiende de una que introduce
+paginado que extiende a su vez de CRUD, es decir, JpaRepository tiene más herramientas
+
+35. Creamos los servicios y los anotamos como @Service para indicarle a Spring que 
+son Beans, ademas le indicamos que servicio especifico brindan para que la seguridad
+de Spring pueda utilizarlos
+
+36. En la clase de UsuarioService incluimos un metodo que nos permite recuperar 
+un usuario (de Spring) por username, haciendo Override del metodo de la clase 
+implementada por UsuarioService
+
+37. Modificamos nuestra clase de SecurityConfig para recuperar los datos de Usuario
+de la DDBB sacamos el metodo de crear usuarios en memoria e incluimos el servicio 
+de usuarios que acabamos de crear. 
+
+38. Creamos un metodo para encriptar el pass llamado passwordEncoder() que devuelve
+una instancia de BCryptPasswordEncoder
+
+39. Creamos un metodo configurerGlobal anotado como Autowired que tiene como parametro 
+una instancia de AuthenticationManagerBuilder (inyectada por autowired). Con el 
+parametro utilizamos su metodo userDetailsService() y le pasamos como parametro
+nuestro userDetailsService, y tambien su metodo passwordEncoder() y le pasamos
+como parametro nuestro passwordEncoder().
+
 */

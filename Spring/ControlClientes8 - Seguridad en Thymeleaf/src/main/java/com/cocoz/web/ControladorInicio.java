@@ -196,4 +196,8 @@ un html para 403 y lo agregamos a WebConfig y a SecurityConfig (como ExceptionHa
 30. Podemos recuperar el usuario que se logeo inyectando @AuthenticationPrincipal User user
 en los parametros de get '/' (o en cualquier otro lado claro esta)
 
+31. Agregando la libreria de security de thymeleaf (en pom y como prefijos en html) 
+podemos acceder a datos de authority desde nuestros html, con lo que podemos modificar
+las views, por ejemplo
+
 */
