@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Inicio</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <header th:replace="~{layout/plantilla.html :: header}"></header>  
+        
+        <section th:replace="~{layout/botonesAgregar.html :: botonesAgregar}"></section>  
+                 
+        <section th:replace="~{layout/agregarCliente.html :: agregarCliente}"></section>
+        
+        <section th:replace="~{layout/listadoClientes.html :: listadoClientes}"></section>  
+        
+        <footer th:replace="~{layout/plantilla.html :: footer}"></footer>
+    </body>
+</html>
